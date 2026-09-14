@@ -1,26 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Green palette */
+  --green: #6dbd8a;
+  --green-dim: #4a8c64;
+  --green-dark: #1a3025;
+
+  /* Blue palette — for selected rows, active states, section headers */
+  --blue: #5a9fd4;
+  --blue-dim: #3a7aad;
+  --blue-dark: #0d2540;
+
+  /* Accent colors */
+  --yellow: #c4a84a;      /* softer amber */
+  --red: #c05a5a;         /* muted red */
+  --cyan: #5bb8c4;        /* muted teal */
+  --white: #d8d8d8;       /* primary text / names */
+  --white-dim: #a0a0a0;   /* secondary text */
+  --gray: #4a4a4a;        /* tertiary / timestamps */
+
+  /* Backgrounds */
+  --bg: #0c0c0c;
+  --bg-row: #101a10;
+  --bg-row-alt: #0e0e14;  /* slight blue tint on alternating rows */
+  --bg-selected: #0d2540; /* blue-dark for selected row, like cointop */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  background: var(--bg);
+  color: var(--green);
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.54;
+  height: 100%;
+  overflow: hidden;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Very subtle scanline */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 3px,
+    rgba(0, 0, 0, 0.03) 3px, rgba(0, 0, 0, 0.03) 6px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Minimal glow */
+.glow {
+  text-shadow: 0 0 4px rgba(109, 189, 138, 0.2);
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  display: inline-block;
+  animation: blink 1.2s step-end infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: #0c0c0c; }
+::-webkit-scrollbar-thumb { background: var(--blue-dark); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--blue-dim); }
+
+/* Table row hover */
+.table-row-hover:hover { background: var(--bg-row); cursor: pointer; }
+
+/* Section divider */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--green-dark);
+}
+
+/* Mobile fallback */
+@media (max-width: 768px) {
+  html, body { overflow: auto; font-size: 11px; }
 }
