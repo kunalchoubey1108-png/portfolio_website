@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   },
 }
 
+import CustomCursor from '@/components/CustomCursor'
+
 export default function RootLayout({
   children,
 }: {
@@ -17,7 +19,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <CustomCursor
+          spinDuration={2}
+          hideDefaultCursor
+          parallaxOn
+          hoverDuration={0.2}
+          cursorColor="#4CAF50"
+          cursorColorOnTarget="#81C784"
+        />
+      </body>
     </html>
   )
 }

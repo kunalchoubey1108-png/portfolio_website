@@ -70,7 +70,7 @@ export default function ContactView() {
           </div>
           <button
             onClick={() => setStatus('idle')}
-            className="mt-2"
+            className="cursor-target mt-2"
             style={{ color: 'var(--yellow)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: 'inherit' }}
           >
             [Send another]
@@ -130,7 +130,7 @@ export default function ContactView() {
             <button
               onClick={handleSubmit}
               disabled={status === 'sending'}
-              className="hover:brightness-125 transition-all"
+              className="cursor-target hover:brightness-125 transition-all"
               style={{
                 color: status === 'sending' ? 'var(--gray)' : 'var(--green)',
                 background: 'none',
@@ -149,6 +149,7 @@ export default function ContactView() {
                 setActive('name')
                 setStatus('idle')
               }}
+              className="cursor-target"
               style={{
                 color: 'var(--gray)',
                 background: 'none',
@@ -166,6 +167,7 @@ export default function ContactView() {
             {'>>>'} Or email directly:{' '}
             <a
               href="mailto:kunalchoubey1108@gmail.com"
+              className="cursor-target"
               style={{ color: 'var(--green)' }}
             >
               kunalchoubey1108@gmail.com

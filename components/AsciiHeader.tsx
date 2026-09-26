@@ -52,7 +52,7 @@ export default function AsciiHeader({ onSocialClick }: AsciiHeaderProps) {
       <div className="mt-3 flex flex-wrap gap-5 text-xs">
         <button
           onClick={() => onSocialClick('github')}
-          className="flex items-center gap-1 transition-opacity hover:opacity-80"
+          className="cursor-target flex items-center gap-1 transition-opacity hover:opacity-80"
           style={{ color: 'var(--white-dim)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
         >
           <span style={{ color: 'var(--green)' }}>[g]</span>
@@ -60,7 +60,7 @@ export default function AsciiHeader({ onSocialClick }: AsciiHeaderProps) {
         </button>
         <button
           onClick={() => onSocialClick('linkedin')}
-          className="flex items-center gap-1 transition-opacity hover:opacity-80"
+          className="cursor-target flex items-center gap-1 transition-opacity hover:opacity-80"
           style={{ color: 'var(--white-dim)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
         >
           <span style={{ color: 'var(--blue)' }}>[l]</span>
@@ -68,7 +68,7 @@ export default function AsciiHeader({ onSocialClick }: AsciiHeaderProps) {
         </button>
         <button
           onClick={() => onSocialClick('email')}
-          className="flex items-center gap-1 transition-opacity hover:opacity-80"
+          className="cursor-target flex items-center gap-1 transition-opacity hover:opacity-80"
           style={{ color: 'var(--white-dim)', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
         >
           <span style={{ color: 'var(--red)' }}>[e]</span>

@@ -89,7 +89,7 @@ export default function AboutView() {
       {/* Footer */}
       <div style={{ color: 'var(--gray)', borderTop: '1px solid var(--green-dark)' }} className="pt-3">
         {'>>>'} Open to interesting projects and collaborations.{' '}
-        <span style={{ color: 'var(--green)' }}>kunalchoubey1108@gmail.com</span>
+        <span className="cursor-target" style={{ color: 'var(--green)' }}>kunalchoubey1108@gmail.com</span>
       </div>
     </div>
   )

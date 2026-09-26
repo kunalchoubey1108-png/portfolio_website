@@ -12,14 +12,12 @@ import AboutView from './AboutView'
 import ContactView from './ContactView'
 
 interface TerminalShellProps {
-  repos: Repo[]
+  charts: any[]
 }
 
 export default function TerminalShell({ repos }: TerminalShellProps) {
   const [section, setSection] = useState<Section>('projects')
   const [searchActive, setSearchActive] = useState(false)
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
-  const [isClicking, setIsClicking] = useState(false)
 
   const openSocial = useCallback((type: 'github' | 'linkedin' | 'email') => {
     const urls = {
@@ -61,26 +59,6 @@ export default function TerminalShell({ repos }: TerminalShellProps) {
     return () => window.removeEventListener('keydown', onKey)
   }, [openSocial])
 
-  // Custom cursor
-  useEffect(() => {
-    const updateCursorPos = (e: MouseEvent) => {
-      setCursorPos({ x: e.clientX, y: e.clientY })
-    }
-
-    const onMouseDown = () => setIsClicking(true)
-    const onMouseUp = () => setIsClicking(false)
-
-    window.addEventListener('mousemove', updateCursorPos)
-    window.addEventListener('mousedown', onMouseDown)
-    window.addEventListener('mouseup', onMouseUp)
-
-    return () => {
-      window.removeEventListener('mousemove', updateCursorPos)
-      window.removeEventListener('mousedown', onMouseDown)
-      window.removeEventListener('mouseup', onMouseUp)
-    }
-  }, [])
-
   return (
     <div
       className="flex flex-col"
@@ -91,12 +69,6 @@ export default function TerminalShell({ repos }: TerminalShellProps) {
         overflow: 'hidden',
       }}
     >
-      {/* Custom cursor */}
-      <div
-        className={`custom-cursor ${isClicking ? 'active' : ''}`}
-        style={{ left: cursorPos.x, top: cursorPos.y }}
-      ></div>
-
       {/* Window chrome — macOS style dots */}
       <div
         className="flex items-center gap-2 px-3 py-1.5 select-none"
