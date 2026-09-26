@@ -196,18 +196,18 @@ export default function ProjectTable({ repos }: ProjectTableProps) {
         }}
       >
         <span>[r]ank</span>
-        <button onClick={() => handleSort('name')} className="cursor-target text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
+        <button onClick={() => handleSort('name')} className="text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
           [n]ame <SortIndicator col="name" />
         </button>
         <span>[d]escription</span>
         <span>[l]ang</span>
-        <button onClick={() => handleSort('stargazers_count')} className="cursor-target text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
+        <button onClick={() => handleSort('stargazers_count')} className="text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
           [s]tars <SortIndicator col="stargazers_count" />
         </button>
-        <button onClick={() => handleSort('forks_count')} className="cursor-target text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
+        <button onClick={() => handleSort('forks_count')} className="text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
           [f]orks <SortIndicator col="forks_count" />
         </button>
-        <button onClick={() => handleSort('pushed_at')} className="cursor-target text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
+        <button onClick={() => handleSort('pushed_at')} className="text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
           [u]pdated <SortIndicator col="pushed_at" />
         </button>
       </div>
@@ -225,7 +225,7 @@ export default function ProjectTable({ repos }: ProjectTableProps) {
               <div
                 key={repo.id}
                 ref={(el) => { rowRefs.current[idx] = el as HTMLTableRowElement | null }}
-                className="cursor-target grid text-xs px-2 py-1 cursor-pointer table-row-hover"
+                className="grid text-xs px-2 py-1 cursor-pointer table-row-hover"
                 style={{
                   gridTemplateColumns: '3ch 1fr 2fr 10ch 6ch 6ch 10ch',
                   background: isSelected

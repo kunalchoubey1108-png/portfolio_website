@@ -29,7 +29,7 @@ export default function SectionTabs({ active, onChange }: SectionTabsProps) {
           <button
             key={tab.key}
             onClick={() => onChange(tab.key)}
-            className="cursor-target px-4 py-1.5 text-xs transition-all"
+            className="px-4 py-1.5 text-xs transition-all"
             style={{
               fontFamily: "inherit",
               background: isActive ? "var(--blue-dark)" : "transparent",
