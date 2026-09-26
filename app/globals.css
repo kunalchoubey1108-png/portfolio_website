@@ -3,28 +3,29 @@
 
 :root {
   /* Green palette */
-  --green: #6dbd8a;
-  --green-dim: #4a8c64;
-  --green-dark: #1a3025;
+  --green: #7cD99F;
+  --green-dim: #5aA678;
+  --green-dark: #15261E;
 
   /* Blue palette — for selected rows, active states, section headers */
-  --blue: #5a9fd4;
-  --blue-dim: #3a7aad;
-  --blue-dark: #0d2540;
+  --blue: #6ab0D4;
+  --blue-dim: #4a80a0;
+  --blue-dark: #0A1F3A;
 
   /* Accent colors */
-  --yellow: #c4a84a;      /* softer amber */
-  --red: #c05a5a;         /* muted red */
-  --cyan: #5bb8c4;        /* muted teal */
-  --white: #d8d8d8;       /* primary text / names */
-  --white-dim: #a0a0a0;   /* secondary text */
-  --gray: #4a4a4a;        /* tertiary / timestamps */
+  --yellow: #D4B48A;      /* softer amber */
+  --red: #D48A8A;         /* muted red */
+  --cyan: #8ACFD4;        /* muted teal */
+  --purple: #9a86cf;      /* accent purple */
+  --white: #E0E0E0;       /* primary text / names */
+  --white-dim: #B0B0B0;   /* secondary text */
+  --gray: #5A5A5A;        /* tertiary / timestamps */
 
   /* Backgrounds */
-  --bg: #0c0c0c;
-  --bg-row: #101a10;
-  --bg-row-alt: #0e0e14;  /* slight blue tint on alternating rows */
-  --bg-selected: #0d2540; /* blue-dark for selected row, like cointop */
+  --bg: #0A0A0A;
+  --bg-row: #0D150D;
+  --bg-row-alt: #0B0B12;  /* slight blue tint on alternating rows */
+  --bg-selected: #0A1F3A; /* blue-dark for selected row, like cointop */
 }
 
 * {
@@ -80,12 +81,62 @@ body::before {
 ::-webkit-scrollbar-thumb:hover { background: var(--blue-dim); }
 
 /* Table row hover */
+.table-row-hover {
+  transition: background 0.2s ease;
+}
 .table-row-hover:hover { background: var(--bg-row); cursor: pointer; }
 
 /* Section divider */
 .section-divider {
   border: none;
   border-top: 1px solid var(--green-dark);
+}
+
+/* Custom cursor */
+.custom-cursor {
+  width: 12px;
+  height: 12px;
+  background: var(--purple);
+  position: fixed;
+  border-radius: 2px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out, background 0.3s ease-out;
+  z-index: 9999;
+}
+
+.custom-cursor.active {
+  transform: translate(-50%, -50%) scale(0.6);
+  background: var(--white);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Global hover effect for interactive elements */
+button:hover:not(:disabled),
+a:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  transition: filter 0.2s, transform 0.2s;
+}
+
+/* Float animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
 }
 
 /* Mobile fallback */

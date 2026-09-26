@@ -14,7 +14,7 @@ interface AsciiHeaderProps {
 export default function AsciiHeader({ onSocialClick }: AsciiHeaderProps) {
   return (
     <div
-      className="px-4 py-4 select-none"
+      className="px-4 py-4 select-none float"
       style={{ borderBottom: '1px solid var(--green-dark)' }}
     >
       {/* ASCII art — same size on all screens, no big-font fallback */}
