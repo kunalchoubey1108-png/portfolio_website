@@ -76,6 +76,14 @@ For public data (GitHub API):
 - Variables starting with `NEXT_PUBLIC_` are safe to use
 - They're embedded in the static site
 
+Optional — higher GitHub API rate limit:
+
+- Set `GITHUB_TOKEN` (no `NEXT_PUBLIC_` prefix) to raise the unauthenticated
+  limit of 60 requests/hour to 5,000/hour. It is read server-side at build time
+  and is never shipped to the browser.
+- The CI workflow already passes the built-in Actions token automatically; for
+  local builds, export a personal access token before `npm run build`.
+
 For sensitive data (Supabase keys):
 
 - Use only `NEXT_PUBLIC_*` keys in production
@@ -110,7 +118,8 @@ npm run build
 npm run start
 ```
 
-Then open `http://localhost:3000` to preview your live site.
+(`npm run start` serves the exported `out/` directory, since `output: "export"`
+means there is no Next.js server to run. Open `http://localhost:3000` to preview.)
 
 ## Continuous Updates
 

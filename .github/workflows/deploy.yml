@@ -38,6 +38,14 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # Deployed as a GitHub Pages project site at
+          # https://kunalchoubey1108-png.github.io/portfolio_website/
+          # so all assets must be prefixed with the repo's base path.
+          NEXT_PUBLIC_BASE_PATH: /portfolio_website
+          # Built-in token (auto-provided by Actions); raises the GitHub API
+          # rate limit so the repo fetch at build time never gets throttled.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

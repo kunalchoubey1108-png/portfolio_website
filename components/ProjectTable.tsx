@@ -6,6 +6,7 @@ import { formatDate } from '@/lib/github'
 
 interface ProjectTableProps {
   repos: Repo[]
+  onSearchActiveChange?: (active: boolean) => void
 }
 
 const LANG_COLORS: Record<string, string> = {
@@ -36,7 +37,21 @@ function LangBadge({ lang }: { lang: string | null }) {
   )
 }
 
-export default function ProjectTable({ repos }: ProjectTableProps) {
+function SortIndicator({
+  col,
+  sortKey,
+  sortAsc,
+}: {
+  col: keyof Repo
+  sortKey: keyof Repo | null
+  sortAsc: boolean
+}) {
+  return sortKey === col ? (
+    <span style={{ color: 'var(--yellow)' }}>{sortAsc ? '▲' : '▼'}</span>
+  ) : null
+}
+
+export default function ProjectTable({ repos, onSearchActiveChange }: ProjectTableProps) {
   const [selectedIdx, setSelectedIdx] = useState(0)
   const [query, setQuery] = useState('')
   const [searchActive, setSearchActive] = useState(false)
@@ -88,13 +103,22 @@ export default function ProjectTable({ repos }: ProjectTableProps) {
     })
   }, [])
 
+  const setSearch = useCallback(
+    (active: boolean) => {
+      setSearchActive(active)
+      onSearchActiveChange?.(active)
+    },
+    [onSearchActiveChange]
+  )
+
   // Keyboard navigation
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (searchActive) {
         if (e.key === 'Escape') {
-          setSearchActive(false)
+          setSearch(false)
           setQuery('')
+          setSelectedIdx(0)
         }
         return
       }
@@ -117,7 +141,7 @@ export default function ProjectTable({ repos }: ProjectTableProps) {
           break
         case '/':
           e.preventDefault()
-          setSearchActive(true)
+          setSearch(true)
           setTimeout(() => searchRef.current?.focus(), 50)
           break
         case 's':
@@ -137,22 +161,12 @@ export default function ProjectTable({ repos }: ProjectTableProps) {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchActive, selectedIdx, sorted])
+  }, [searchActive, selectedIdx, sorted, setSearch])
 
   // Scroll selected row into view
   useEffect(() => {
     rowRefs.current[selectedIdx]?.scrollIntoView({ block: 'nearest' })
   }, [selectedIdx])
-
-  // Reset selection when filter changes
-  useEffect(() => {
-    setSelectedIdx(0)
-  }, [query])
-
-  const SortIndicator = ({ col }: { col: keyof Repo }) =>
-    sortKey === col ? (
-      <span style={{ color: 'var(--yellow)' }}>{sortAsc ? '▲' : '▼'}</span>
-    ) : null
 
   return (
     <div ref={tableRef} className="flex flex-col h-full overflow-hidden">
@@ -166,13 +180,17 @@ export default function ProjectTable({ repos }: ProjectTableProps) {
           <input
             ref={searchRef}
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              setSelectedIdx(0)
+            }}
             onKeyDown={(e) => {
               if (e.key === 'Escape') {
-                setSearchActive(false)
+                setSearch(false)
                 setQuery('')
+                setSelectedIdx(0)
               }
-              if (e.key === 'Enter') setSearchActive(false)
+              if (e.key === 'Enter') setSearch(false)
             }}
             className="flex-1 bg-transparent outline-none"
             style={{ color: 'var(--green)', fontFamily: 'inherit', fontSize: 'inherit' }}
@@ -197,18 +215,18 @@ export default function ProjectTable({ repos }: ProjectTableProps) {
       >
         <span>[r]ank</span>
         <button onClick={() => handleSort('name')} className="text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
-          [n]ame <SortIndicator col="name" />
+          [n]ame <SortIndicator col="name" sortKey={sortKey} sortAsc={sortAsc} />
         </button>
         <span>[d]escription</span>
         <span>[l]ang</span>
         <button onClick={() => handleSort('stargazers_count')} className="text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
-          [s]tars <SortIndicator col="stargazers_count" />
+          [s]tars <SortIndicator col="stargazers_count" sortKey={sortKey} sortAsc={sortAsc} />
         </button>
         <button onClick={() => handleSort('forks_count')} className="text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
-          [f]orks <SortIndicator col="forks_count" />
+          [f]orks <SortIndicator col="forks_count" sortKey={sortKey} sortAsc={sortAsc} />
         </button>
         <button onClick={() => handleSort('pushed_at')} className="text-left" style={{ background: 'none', border: 'none', color: 'var(--yellow)', fontFamily: 'inherit', fontSize: 'inherit', cursor: 'pointer', fontWeight: 'bold' }}>
-          [u]pdated <SortIndicator col="pushed_at" />
+          [u]pdated <SortIndicator col="pushed_at" sortKey={sortKey} sortAsc={sortAsc} />
         </button>
       </div>
 

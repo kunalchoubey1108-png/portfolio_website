@@ -11,13 +11,24 @@ export interface Repo {
   topics: string[]
 }
 
+const GITHUB_USERNAME = 'kunalchoubey1108-png'
+
 export async function fetchRepos(): Promise<Repo[]> {
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github.v3+json',
+  }
+
+  // Optional: a token lifts the rate limit from 60 to 5,000 requests/hour.
+  // Intentionally not NEXT_PUBLIC_* so it stays server-side (build time) only.
+  const token = process.env.GITHUB_TOKEN
+  if (token) {
+    headers.Authorization = `Bearer ${token}`
+  }
+
   const res = await fetch(
-    'https://api.github.com/users/kunalchoubey1108-png/repos?per_page=100&sort=updated',
+    `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`,
     {
-      headers: {
-        Accept: 'application/vnd.github.v3+json',
-      },
+      headers,
       next: { revalidate: 3600 },
     }
   )

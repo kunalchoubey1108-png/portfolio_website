@@ -92,24 +92,6 @@ body::before {
   border-top: 1px solid var(--green-dark);
 }
 
-/* Custom cursor */
-.custom-cursor {
-  width: 12px;
-  height: 12px;
-  background: var(--purple);
-  position: fixed;
-  border-radius: 2px;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease-out, background 0.3s ease-out;
-  z-index: 9999;
-}
-
-.custom-cursor.active {
-  transform: translate(-50%, -50%) scale(0.6);
-  background: var(--white);
-}
-
 /* Fade-in animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }

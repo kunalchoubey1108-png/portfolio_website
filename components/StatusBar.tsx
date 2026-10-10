@@ -48,7 +48,9 @@ export default function StatusBar({ activeSection, repoCount }: StatusBarProps) 
           <span style={{ color: 'var(--yellow)' }}>{repoCount}</span> repos
         </span>
         <span style={{ color: 'var(--gray)' }}>•</span>
-        <span style={{ color: 'var(--gray)' }}>Last updated: {now}</span>
+        <span suppressHydrationWarning style={{ color: 'var(--gray)' }}>
+          Last updated: {now}
+        </span>
       </div>
     </div>
   )
