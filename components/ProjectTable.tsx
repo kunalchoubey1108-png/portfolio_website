@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import type { Repo } from '@/lib/github'
-import { formatDate } from '@/lib/github'
+import { formatDate, projectUrl } from '@/lib/github'
 
 interface ProjectTableProps {
   repos: Repo[]
@@ -136,7 +136,7 @@ export default function ProjectTable({ repos, onSearchActiveChange }: ProjectTab
           break
         case 'Enter':
           if (sorted[selectedIdx]) {
-            window.open(sorted[selectedIdx].html_url, '_blank')
+            window.open(projectUrl(sorted[selectedIdx]), '_blank')
           }
           break
         case '/':
@@ -243,7 +243,7 @@ export default function ProjectTable({ repos, onSearchActiveChange }: ProjectTab
               <div
                 key={repo.id}
                 ref={(el) => { rowRefs.current[idx] = el as HTMLTableRowElement | null }}
-                className="grid text-xs px-2 py-1 cursor-pointer table-row-hover"
+                className="grid text-xs px-2 py-1 cursor-pointer table-row-hover option-hover"
                 style={{
                   gridTemplateColumns: '3ch 1fr 2fr 10ch 6ch 6ch 10ch',
                   background: isSelected
@@ -254,7 +254,7 @@ export default function ProjectTable({ repos, onSearchActiveChange }: ProjectTab
                 }}
                 onClick={() => {
                   setSelectedIdx(idx)
-                  window.open(repo.html_url, '_blank')
+                  window.open(projectUrl(repo), '_blank')
                 }}
                 onMouseEnter={() => setSelectedIdx(idx)}
               >

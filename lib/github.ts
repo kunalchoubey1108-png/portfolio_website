@@ -45,6 +45,13 @@ export async function fetchRepos(): Promise<Repo[]> {
     .sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime())
 }
 
+// Prefer the deployed site (e.g. Vercel) set as the repo's homepage; fall back to GitHub.
+export function projectUrl(repo: Repo): string {
+  const home = repo.homepage?.trim()
+  if (!home) return repo.html_url
+  return /^https?:\/\//i.test(home) ? home : `https://${home}`
+}
+
 export function formatDate(dateStr: string): string {
   const d = new Date(dateStr)
   return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })

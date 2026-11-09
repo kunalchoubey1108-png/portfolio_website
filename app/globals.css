@@ -86,6 +86,21 @@ body::before {
 }
 .table-row-hover:hover { background: var(--bg-row); cursor: pointer; }
 
+/* Selectable option hover */
+.option-hover {
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.option-hover * {
+  transition: color 0.18s ease;
+}
+.option-hover:hover {
+  background-color: var(--green) !important;
+  color: var(--bg) !important;
+}
+.option-hover:hover * {
+  color: var(--bg) !important;
+}
+
 /* Section divider */
 .section-divider {
   border: none;
